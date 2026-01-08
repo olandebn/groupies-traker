@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// Structures pour stocker les données de l'API [cite: 5, 8]
 type Artist struct {
 	ID           int      `json:"id"`
 	Image        string   `json:"image"`
@@ -19,9 +20,11 @@ type Relation struct {
 	DatesLocations map[string][]string `json:"datesLocations"`
 }
 
-// Fonction pour récupérer les données (Requête au serveur)
-func FetchData(url string, target interface{}) error {
-	resp, err := http.Get(url)
+const apiBase = "https://groupietrackers.herokuapp.com/api"
+
+// FetchData est une fonction générique pour les appels client-serveur
+func FetchData(endpoint string, target interface{}) error {
+	resp, err := http.Get(apiBase + endpoint)
 	if err != nil {
 		return err
 	}

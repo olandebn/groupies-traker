@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
-<head><title>Groupie Tracker</title></head>
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Groupie Tracker</title>
+</head>
 <body>
-    <h1>Artistes</h1>
-    <div style="display:flex; flex-wrap:wrap;">
+    <h1>🎸 Groupie Tracker</h1>
+    <div class="grid">
         {{range .}}
-        <div style="border:1px solid #ccc; margin:10px; padding:10px; width:200px;">
-            <img src="{{.Image}}" width="100%">
+        <div class="card">
+            <img src="{{.Image}}">
             <h2>{{.Name}}</h2>
-            <a href="/artist?id={{.ID}}">Voir les concerts</a>
+            <p>Création : {{.CreationDate}}</p>
+            <a href="/artist?id={{.ID}}" class="btn">Concerts</a>
         </div>
         {{end}}
     </div>
