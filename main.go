@@ -1,29 +1,54 @@
 package main
 
 import (
-	"encoding/json"
+	"fmt"
+	"html/template"
+	"log"
 	"net/http"
 )
 
-// Structures pour mapper l'API [cite: 5, 6, 7, 8]
-type Artist struct {
-	ID           int      `json:"id"`
-	Image        string   `json:"image"`
-	Name         string   `json:"name"`
-	Members      []string `json:"members"`
-	CreationDate int      `json:"creationDate"`
-	FirstAlbum   string   `json:"firstAlbum"`
-}
+func main() {
+	tmplIndex := template.Must(template.ParseFiles("templates/index.html"))
+	tmplArtist := template.Must(template.ParseFiles("templates/artist.html"))
 
-// Fonction pour récupérer les données (Client-Server action) [cite: 14]
-func FetchArtists() ([]Artist, error) {
-	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
+	// Page d'accueil : Liste des artistes
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/" {
+			http.NotFound(w, r)
+			return
+		}
+		artists, _ := FetchArtists()
+		tmplIndex.Execute(w, artists)
+	})
 
-	var artists []Artist
-	err = json.NewDecoder(resp.Body).Decode(&artists)
-	return artists, err
+	// Page de détails : Relation Dates/Lieux (Action client-serveur) [cite: 12]
+	http.HandleFunc("/artist", func(w http.ResponseWriter, r *http.Request) {
+		id := r.URL.Query().Get("id")
+		if id == "" {
+			http.Redirect(w, r, "/", http.StatusSeeOther)
+			return
+		}
+
+		// On récupère les deux types de données pour cette page
+		artists, _ := FetchArtists() // Pour le nom/image
+		var currentArtist Artist
+		for _, a := range artists {
+			if fmt.Sprintf("%d", a.ID) == id {
+				currentArtist = a
+				break
+			}
+		}
+
+		relation, _ := FetchRelation(id)
+
+		data := struct {
+			Artist   Artist
+			Relation Relation
+		}{currentArtist, relation}
+
+		tmplArtist.Execute(w, data)
+	})
+
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
