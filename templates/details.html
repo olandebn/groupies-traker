@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>{{.Artist.Name}}</title></head>
+<body>
+    <h1>{{.Artist.Name}}</h1>
+    <h3>Concerts et Lieux :</h3>
+    <ul>
+        {{range $loc, $dates := .Relation.DatesLocations}}
+        <li><strong>{{$loc}}</strong> : {{range $dates}}{{.}} {{end}}</li>
+        {{end}}
+    </ul>
+    <a href="/">Retour</a>
+</body>
+</html>
