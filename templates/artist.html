@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+    <title>{{.Artist.Name}} - Détails</title>
+</head>
+<body>
+    <a href="/">Retour</a>
+    <h1>{{.Artist.Name}}</h1>
+    <img src="{{.Artist.Image}}" width="200">
+
+    <h3>Tournée (Lieux et Dates) :</h3>
+    <div class="relation-grid">
+        {{range $loc, $dates := .Relation.DatesLocations}}
+            <div class="loc-card">
+                <strong>{{$loc}}</strong>
+                <ul>
+                    {{range $dates}}<li>{{.}}</li>{{end}}
+                </ul>
+            </div>
+        {{end}}
+    </div>
+</body>
+</html>
