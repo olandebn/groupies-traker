@@ -1,96 +1,231 @@
-/* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* IMPORTATION DE LA POLICE */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap');
+
+:root {
+    --bg-dark: #121212;
+    --card-bg: #1e1e1e;
+    --primary: #00d2ff; /* Bleu Cyan Néon */
+    --secondary: #7b2cbf; /* Violet */
+    --text-main: #ffffff;
+    --text-muted: #a0a0a0;
 }
 
-/* GLOBAL */
 body {
-  font-family: 'Inter', sans-serif;
-  min-height: 100vh;
-  background: radial-gradient(circle at top, #0f2027, #000);
-  color: #fff;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    overflow-x: hidden;
 }
 
-/* HEADER */
-header {
-  text-align: center;
-  padding: 60px 20px;
+/* --- HEADER / TITRE PRINCIPAL --- */
+.site-header {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(18,18,18,1) 100%);
 }
 
-header h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #19d3ff;
+.site-title {
+    font-weight: 800;
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin: 0;
+    background: -webkit-linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-header p {
-  margin-top: 10px;
-  opacity: 0.7;
+/* --- GRID SYSTEM (ACCUEIL) --- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-/* GRID */
-.grid {
-  max-width: 1200px;
-  margin: auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-  padding: 40px;
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    padding-bottom: 50px;
 }
 
-/* CARD */
-.card {
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 20px;
-  text-align: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 0 rgba(0,0,0,0);
+/* --- CARTES ARTISTES --- */
+.artist-card {
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.05);
 }
 
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+.artist-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 25px rgba(0, 210, 255, 0.4);
+    border-color: var(--primary);
 }
 
-/* IMAGE */
-.card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 15px;
+.card-image-wrapper {
+    height: 250px;
+    overflow: hidden;
 }
 
-/* TEXT */
-.card h2 {
-  font-size: 1.2rem;
-  margin-bottom: 5px;
+.card-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
 }
 
-.card span {
-  font-size: 0.9rem;
-  opacity: 0.6;
+.artist-card:hover .card-image-wrapper img {
+    transform: scale(1.1);
 }
 
-/* BUTTON */
-.card button {
-  margin-top: 15px;
-  padding: 12px;
-  width: 100%;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #00c6ff, #0072ff);
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.card-info {
+    padding: 20px;
+    text-align: center;
 }
 
-.card button:hover {
-  opacity: 0.85;
-  transform: scale(1.03);
+.card-info h2 {
+    margin: 0 0 10px 0;
+    font-size: 1.5rem;
+}
+
+.btn-details {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 20px;
+    background: var(--primary);
+    color: #000;
+    font-weight: bold;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+/* --- PAGE DÉTAILS : HERO BANNER --- */
+.hero-section {
+    position: relative;
+    height: 40vh; /* 40% de la hauteur de l'écran */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.hero-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px) brightness(0.4);
+    z-index: -1;
+}
+
+.hero-content {
+    text-align: center;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 4px solid var(--primary);
+    object-fit: cover;
+    box-shadow: 0 0 30px rgba(0,0,0,0.6);
+    margin-bottom: 20px;
+}
+
+.hero-name {
+    font-size: 4rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+    margin: 0;
+}
+
+/* --- PAGE DÉTAILS : CONTENU --- */
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Colonne gauche plus petite */
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto 60px auto;
+    padding: 0 20px;
+}
+
+/* STYLE DES BOITES DE CONTENU */
+.glass-box {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-box h3 {
+    color: var(--primary);
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+.members-list {
+    list-style: none;
+    padding: 0;
+}
+
+.members-list li {
+    padding: 8px 0;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+/* STYLE DES CONCERTS */
+.concert-item {
+    background: rgba(0,0,0,0.3);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 4px solid var(--secondary);
+}
+
+.location-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #fff;
+    text-transform: capitalize; /* Met la première lettre en majuscule */
+    margin-bottom: 5px;
+    display: block;
+}
+
+.date-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    margin-right: 5px;
+    margin-top: 5px;
+    color: var(--primary);
+}
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+    .hero-name {
+        font-size: 2.5rem;
+    }
 }
