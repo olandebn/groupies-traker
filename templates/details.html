@@ -5,70 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{.Artist.Name}} - Détails</title>
     <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* Un peu de CSS spécifique pour aligner cette page proprement */
+        .details-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #151725;
+            padding: 30px;
+            border-radius: 15px;
+        }
+        .back-btn {
+            color: #00d2ff;
+            text-decoration: none;
+            font-size: 1.2em;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .concert-box {
+            margin-top: 20px;
+            border-top: 1px solid #333;
+            padding-top: 10px;
+        }
+        .location {
+            color: #00d2ff;
+            font-weight: bold;
+            text-transform: capitalize;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+        .dates {
+            color: #ccc;
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
 
-    <a href="/" style="position: fixed; top: 20px; left: 20px; z-index: 100; background: rgba(0,0,0,0.5); padding: 10px 20px; border-radius: 30px; color: white; font-weight: bold;">
-        ← Retour
-    </a>
+    <a href="/" class="back-btn">← Retour à l'accueil</a>
 
-    <div class="hero-section">
-        <div class="hero-bg" style="background-image: url('{{.Artist.Image}}');"></div>
-        
-        <div class="hero-content">
-            <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}" class="hero-avatar">
-            <h1 class="hero-name">{{.Artist.Name}}</h1>
-        </div>
-    </div>
-
-
-    <div class="details-grid">
-
-        <div class="left-column">
-            
-            <div class="glass-box" style="margin-bottom: 30px;">
-                <h3>Informations</h3>
-                <div class="info-item">
-                    <strong>Début de carrière :</strong> {{.Artist.CreationDate}}
-                </div>
-                <div class="info-item">
-                    <strong>Premier Album :</strong> {{.Artist.FirstAlbum}}
-                </div>
-            </div>
-
-            <div class="glass-box">
-                <h3>Membres du groupe</h3>
-                <ul class="members-list">
-                    {{range .Artist.Members}}
-                    <li>🎸 {{.}}</li>
-                    {{end}}
-                </ul>
-            </div>
-
+    <div class="details-container">
+        <div style="text-align: center;">
+            <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}" style="border-radius: 50%; border: 3px solid #00d2ff; width: 200px;">
+            <h1>{{.Artist.Name}}</h1>
         </div>
 
-        <div class="right-column">
-            <div class="glass-box">
-                <h3>🎸 Tournées & Dates</h3>
-
-                {{if .Relation.DatesLocations}}
-                    {{range $location, $dates := .Relation.DatesLocations}}
-                    <div class="concert-item">
-                        <span class="location-name">📍 {{$location | cleanLocation}}</span>
-                        
-                        <div class="dates-container">
-                            {{range $dates}}
-                            <span class="date-badge">{{.}}</span>
-                            {{end}}
-                        </div>
-                    </div>
-                    {{end}}
-                {{else}}
-                    <p style="color: var(--text-muted);">Aucune date de concert trouvée pour cet artiste.</p>
+        <div style="text-align: center; margin-bottom: 30px;">
+            <p><strong>Membres :</strong></p>
+            <ul style="list-style: none; padding: 0;">
+                {{range .Artist.Members}}
+                <li>{{.}}</li>
                 {{end}}
-            </div>
+            </ul>
+            <p><strong>Création :</strong> {{.Artist.CreationDate}}</p>
+            <p><strong>Premier Album :</strong> {{.Artist.FirstAlbum}}</p>
         </div>
 
+        <h2 style="text-align: center; color: #00d2ff;">Dates de Concerts</h2>
+        
+        <div class="concert-box">
+            {{range $location, $dates := .Relation.DatesLocations}}
+            <div>
+                <div class="location">{{$location}}</div>
+                <div class="dates">
+                    {{range $dates}}
+                    <span>📅 {{.}}</span><br>
+                    {{end}}
+                </div>
+            </div>
+            {{end}}
+        </div>
     </div>
 
 </body>
