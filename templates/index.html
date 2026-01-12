@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Groupie Tracker | Premium</title>
-    <link rel="stylesheet" href="/static/style.css">
+  <meta charset="UTF-8">
+  <title>Groupie Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Groupie Tracker</h1>
-        <p>Explorez les données de vos artistes favoris</p>
-    </header>
 
-    <main class="grid">
-        {{range .}}
-        <div class="card">
-            <div class="image-container">
-                <img src="{{.Image}}" alt="{{.Name}}">
-            </div>
-            <div class="content">
-                <span class="info-tag">Créé en {{.CreationDate}}</span>
-                <h2>{{.Name}}</h2>
-                <p>Premier album : {{.FirstAlbum}}</p>
-                <a href="/artist?id={{.ID}}" class="btn-more">Voir les Concerts</a>
-            </div>
-        </div>
-        {{end}}
-    </main>
+  <header>
+    <h1>Groupie Tracker</h1>
+    <p>Explorez les données de vos artistes favoris</p>
+  </header>
+
+  <main class="grid">
+    <div class="card">
+      <img src="https://upload.wikimedia.org/wikipedia/en/9/9f/Queen_%E2%80%93_Queen_II.png">
+      <h2>Queen</h2>
+      <span>Créé en 1970</span>
+      <button>VOIR LES CONCERTS</button>
+    </div>
+
+    <div class="card">
+      <img src="https://upload.wikimedia.org/wikipedia/en/4/4c/Pink_Floyd_-_Dark_Side_of_the_Moon.png">
+      <h2>Pink Floyd</h2>
+      <span>Créé en 1965</span>
+      <button>VOIR LES CONCERTS</button>
+    </div>
+  </main>
+
 </body>
 </html>
