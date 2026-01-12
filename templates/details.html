@@ -2,45 +2,47 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{.Artist.Name}} | Groupie Tracker</title>
+    <title>{{.Artist.Name}} | Détails</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
-<body>
-    <div class="background-glow"></div>
-    
-    <header class="detail-header">
-        <a href="/" class="back-link">← Retour à l'accueil</a>
-        <h1>{{.Artist.Name}}</h1>
-    </header>
+<body class="detail-body">
+    <div class="container">
+        <header class="detail-header">
+            <a href="/" class="back-btn">← Retour</a>
+            <h1>{{.Artist.Name}}</h1>
+        </header>
 
-    <main class="container">
-        <div class="glass-card artist-hero">
-            <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}" class="detail-img">
-            <div class="artist-info">
-                <div class="badge">Actif depuis {{.Artist.CreationDate}}</div>
-                <p class="specs"><strong>Premier Album :</strong> {{.Artist.FirstAlbum}}</p>
-                <p class="specs"><strong>Membres :</strong></p>
-                <ul class="member-list">
-                    {{range .Artist.Members}}<li>{{.}}</li>{{end}}
-                </ul>
+        <div class="main-content">
+            <div class="glass-card profile-section">
+                <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}" class="profile-img">
+                <div class="artist-stats">
+                    <p><span>Créé en :</span> {{.Artist.CreationDate}}</p>
+                    <p><span>1er Album :</span> {{.Artist.FirstAlbum}}</p>
+                    <div class="members-box">
+                        <p><strong>Membres :</strong></p>
+                        <ul>
+                            {{range .Artist.Members}}<li>{{.}}</li>{{end}}
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <h2 class="subtitle">🌍 Tournée & Concerts</h2>
-
-        <div class="relation-grid">
-            {{range $loc, $dates := .Relation.DatesLocations}}
-            <div class="glass-card loc-card">
-                <h3>{{$loc}}</h3>
-                <div class="date-list">
-                    {{range $dates}}
-                    <span class="date-tag">{{.}}</span>
+            <div class="glass-card concerts-section">
+                <h2>🌍 Tournée & Concerts</h2>
+                <div class="relation-grid">
+                    {{range $loc, $dates := .Relation.DatesLocations}}
+                    <div class="location-item">
+                        <h3>{{$loc}}</h3>
+                        <div class="dates-list">
+                            {{range $dates}}
+                            <span class="date-tag">{{.}}</span>
+                            {{end}}
+                        </div>
+                    </div>
                     {{end}}
                 </div>
             </div>
-            {{end}}
         </div>
-    </main>
+    </div>
 </body>
 </html>
