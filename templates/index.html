@@ -3,33 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Groupie Tracker</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Groupie Tracker - Accueil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS INTÉGRÉ POUR UN STYLE GARANTI --- */
+        
+        :root {
+            --bg-dark: #121212;
+            --card-bg: #1e1e1e;
+            --neon-blue: #00d2ff;
+            --neon-purple: #9d00ff;
+            --text-white: #ffffff;
+            --text-gray: #b3b3b3;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            /* Fond subtil, le même que sur la page détails */
+            background-image: radial-gradient(circle at top left, rgba(157, 0, 255, 0.15), transparent 40%);
+            min-height: 100vh;
+        }
+
+        /* --- HEADER DE LA PAGE --- */
+        .main-header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(to bottom, rgba(30, 30, 30, 0.8), transparent);
+        }
+
+        .main-title {
+            font-size: 4rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            /* Effet de texte en dégradé néon */
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(0, 210, 255, 0.5));
+        }
+
+        .sub-title {
+            color: var(--text-gray);
+            font-size: 1.2rem;
+            margin-top: 15px;
+        }
+
+        /* --- CONTENEUR PRINCIPAL --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 40px 60px 40px;
+        }
+
+        /* --- LA GRILLE DES ARTISTES --- */
+        .artists-grid {
+            display: grid; /* Indispensable pour la grille */
+            /* Grille responsive qui s'adapte à l'écran */
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        /* --- CARTE ARTISTE --- */
+        .artist-card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Effet au survol de la carte */
+        .artist-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-blue);
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.2);
+        }
+
+        .artist-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%; /* Image ronde */
+            object-fit: cover;
+            border: 3px solid rgba(255,255,255,0.1);
+            transition: border-color 0.3s, box-shadow 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .artist-card:hover .artist-img {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+        }
+
+        .artist-name {
+            font-size: 1.5rem;
+            margin: 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .creation-badge {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-gray);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        /* --- BOUTON "VOIR LES CONCERTS" --- */
+        .btn-details {
+            background: transparent;
+            color: var(--neon-blue);
+            border: 2px solid var(--neon-blue);
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            margin-top: auto; /* Pousse le bouton vers le bas */
+        }
+
+        .btn-details:hover {
+            background: var(--neon-blue);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.5);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .main-title { font-size: 2.5rem; }
+            .container { padding: 20px; }
+        }
+    </style>
 </head>
 <body>
 
-    <header>
-        <h1>Groupie Tracker</h1>
-        <p>Explorez les données de vos artistes favoris</p>
+    <header class="main-header">
+        <h1 class="main-title">Groupie Tracker</h1>
+        <p class="sub-title">Explorez l'univers de vos artistes favoris</p>
     </header>
 
     <div class="container">
-        <div class="grid">
+        <div class="artists-grid">
             {{range .}}
-            <div class="card">
-                <img src="{{.Image}}" alt="{{.Name}}">
+            <div class="artist-card">
+                <img src="{{.Image}}" alt="{{.Name}}" class="artist-img" loading="lazy">
                 
-                <div>
-                    <span class="creation-date">Créé en {{.CreationDate}}</span>
-                </div>
-
-                <h2>{{.Name}}</h2>
-
-                <div class="album-info">
-                    Premier album : {{.FirstAlbum}}
-                </div>
-
-                <a href="/artist?id={{.ID}}" class="btn-concerts">VOIR LES CONCERTS</a>
+                <span class="creation-badge">Créé en {{.CreationDate}}</span>
+                
+                <h2 class="artist-name">{{.Name}}</h2>
+                
+                <a href="/artist?id={{.ID}}" class="btn-details">VOIR LES CONCERTS</a>
             </div>
             {{end}}
         </div>
