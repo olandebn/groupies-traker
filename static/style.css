@@ -1,229 +1,92 @@
-/* IMPORTATION D'UNE POLICE MODERNE */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap');
-
-:root {
-    --bg-dark: #121212;
-    --bg-card: #1e1e1e;
-    /* Couleurs Néon pour le peps */
-    --primary: #00d2ff;  /* Cyan */
-    --secondary: #7b2cbf; /* Violet */
-    --text-main: #ffffff;
-    --text-muted: #b3b3b3;
-}
-
 body {
+    background-color: #0b0d17; /* Fond très sombre */
+    color: white;
+    font-family: Arial, sans-serif;
     margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    background-color: var(--bg-dark);
-    color: var(--text-main);
-    overflow-x: hidden; /* Évite le scroll horizontal indésirable */
+    padding: 20px;
 }
 
-a { text-decoration: none; }
-
-/* --- HEADER PRINCIPAL (Page d'accueil) --- */
-.site-header {
+/* Titre principal */
+h1 {
     text-align: center;
-    padding: 50px 20px;
-    background: radial-gradient(circle at center, rgba(123, 44, 191, 0.2) 0%, rgba(18, 18, 18, 1) 70%);
+    color: #00d2ff;
+    text-shadow: 0 0 10px #00d2ff;
+    font-size: 3em;
+    margin-bottom: 10px;
 }
 
-.site-title {
-    font-weight: 800;
-    font-size: 3.5rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin: 0;
-    /* Effet de dégradé sur le texte */
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+p {
+    text-align: center;
+    color: #ccc;
+    margin-bottom: 40px;
 }
 
-/* --- SYSTÈME DE GRILLE (Accueil) --- */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.cards-grid {
+/* Grille des cartes */
+.grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 30px;
-    padding-bottom: 50px;
+    padding: 0 40px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
-/* --- CARTE ARTISTE (Accueil) --- */
-.artist-card {
-    background-color: var(--bg-card);
-    border-radius: 16px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid rgba(255,255,255,0.05);
-    display: flex;
-    flex-direction: column;
-}
-
-.artist-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 210, 255, 0.3);
-    border-color: var(--primary);
-}
-
-.card-image-wrapper {
-    height: 250px;
-    overflow: hidden;
-}
-
-.card-image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.artist-card:hover .card-image-wrapper img {
-    transform: scale(1.1); /* Zoom au survol */
-}
-
-.card-info {
+/* Style de la carte */
+.card {
+    background-color: #151725;
+    border-radius: 15px;
     padding: 20px;
-    flex-grow: 1;
+    text-align: left;
+    transition: transform 0.2s;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.card-info h2 {
-    margin: 0 0 10px 0;
-    font-size: 1.5rem;
+.card:hover {
+    transform: scale(1.02);
 }
 
-.btn-details {
-    display: block;
-    text-align: center;
-    margin-top: 15px;
-    padding: 10px;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    color: white;
-    font-weight: bold;
-    border-radius: 30px;
-    transition: opacity 0.2s;
-}
-
-.btn-details:hover { opacity: 0.9; }
-
-/* --- PAGE DÉTAILS : HERO BANNER --- */
-.hero-section {
-    position: relative;
-    height: 45vh; /* 45% de la hauteur de l'écran */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    margin-bottom: 40px;
-}
-
-/* L'image de fond floutée */
-.hero-bg {
-    position: absolute;
-    top:0; left:0; right:0; bottom:0;
-    background-size: cover;
-    background-position: center;
-    filter: blur(25px) brightness(0.3); /* Très flou et sombre */
-    z-index: -1;
-    transform: scale(1.1); /* Pour éviter les bords blancs dus au flou */
-}
-
-.hero-content {
-    text-align: center;
-    z-index: 2;
-}
-
-.hero-avatar {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 5px solid var(--primary);
-    box-shadow: 0 0 40px rgba(0, 210, 255, 0.5);
-    margin-bottom: 20px;
-    object-fit: cover;
-}
-
-.hero-name {
-    font-size: 4rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    margin: 0;
-}
-
-/* --- PAGE DÉTAILS : LA GRILLE DE CONTENU --- */
-.details-grid {
-    display: grid;
-    /* Deux colonnes : une petite à gauche, une grande à droite */
-    grid-template-columns: 1fr 2fr; 
-    gap: 40px;
-    max-width: 1200px;
-    margin: 0 auto 60px auto;
-    padding: 0 20px;
-}
-
-/* Effet "Glassmorphism" pour les boites */
-.glass-box {
-    background: rgba(255, 255, 255, 0.03); /* Très transparent */
-    backdrop-filter: blur(20px); /* L'effet de verre dépoli */
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    height: fit-content;
-}
-
-.glass-box h3 {
-    color: var(--primary);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 0;
-    border-bottom: 2px solid rgba(255,255,255,0.05);
-    padding-bottom: 15px;
-}
-
-.info-item {
+.card img {
+    width: 100%;
+    border-radius: 10px;
     margin-bottom: 15px;
-    font-size: 1.1rem;
-}
-.info-item strong { color: var(--primary); }
-
-.members-list { list-style: none; padding: 0; }
-.members-list li {
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-/* --- PAGE DÉTAILS : LES CONCERTS --- */
-.concert-item {
-    background: rgba(0,0,0,0.2);
+.card h2 {
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+.date-creation {
+    background-color: #2c2f3f;
+    padding: 5px 10px;
     border-radius: 15px;
-    padding: 20px;
+    font-size: 0.8em;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.album {
+    font-size: 0.9em;
+    color: #aaa;
     margin-bottom: 20px;
-    border-left: 5px solid var(--secondary); /* Barre violette à gauche */
 }
 
-.location-name {
+/* Le bouton bleu */
+.btn {
     display: block;
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 15px;
-    color: white;
+    width: 100%;
+    padding: 10px 0;
+    background-color: #00d2ff;
+    color: black;
+    text-align: center;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: auto; /* Pousse le bouton vers le bas */
 }
 
-.dates-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+.btn:hover {
+    background-color: #00aacc;
 }
-
-.date-badge {
-    background: rgba(0, 210, 255, 0.1);
