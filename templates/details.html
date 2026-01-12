@@ -5,76 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{.Artist.Name}} - Détails</title>
     <link rel="stylesheet" href="/static/style.css">
-    <style>
-        /* Un peu de CSS spécifique pour aligner cette page proprement */
-        .details-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #151725;
-            padding: 30px;
-            border-radius: 15px;
-        }
-        .back-btn {
-            color: #00d2ff;
-            text-decoration: none;
-            font-size: 1.2em;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-        .concert-box {
-            margin-top: 20px;
-            border-top: 1px solid #333;
-            padding-top: 10px;
-        }
-        .location {
-            color: #00d2ff;
-            font-weight: bold;
-            text-transform: capitalize;
-            font-size: 1.1em;
-            margin-top: 15px;
-        }
-        .dates {
-            color: #ccc;
-            margin-left: 10px;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <a href="/" class="back-btn">← Retour à l'accueil</a>
+    <div class="background-glow"></div>
 
-    <div class="details-container">
-        <div style="text-align: center;">
-            <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}" style="border-radius: 50%; border: 3px solid #00d2ff; width: 200px;">
-            <h1>{{.Artist.Name}}</h1>
-        </div>
+    <div class="artist-page">
+        <a href="/" class="back-btn">← Retour à l'accueil</a>
 
-        <div style="text-align: center; margin-bottom: 30px;">
-            <p><strong>Membres :</strong></p>
-            <ul style="list-style: none; padding: 0;">
-                {{range .Artist.Members}}
-                <li>{{.}}</li>
-                {{end}}
-            </ul>
-            <p><strong>Création :</strong> {{.Artist.CreationDate}}</p>
-            <p><strong>Premier Album :</strong> {{.Artist.FirstAlbum}}</p>
-        </div>
+        <div class="artist-header">
+            <div class="avatar-container">
+                <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}">
+            </div>
+            <div class="artist-info">
+                <h1>{{.Artist.Name}}</h1>
+                
+                <div class="badges">
+                    <span class="badge">📅 Depuis {{.Artist.CreationDate}}</span>
+                    <span class="badge">💿 1er Album : {{.Artist.FirstAlbum}}</span>
+                </div>
 
-        <h2 style="text-align: center; color: #00d2ff;">Dates de Concerts</h2>
-        
-        <div class="concert-box">
-            {{range $location, $dates := .Relation.DatesLocations}}
-            <div>
-                <div class="location">{{$location}}</div>
-                <div class="dates">
-                    {{range $dates}}
-                    <span>📅 {{.}}</span><br>
-                    {{end}}
+                <div style="margin-top: 20px; color: #aaa;">
+                    <strong>Membres :</strong>
+                    <ul style="list-style: none; padding: 0; margin-top: 5px;">
+                        {{range .Artist.Members}}
+                        <li style="display: inline-block; margin-right: 15px;">• {{.}}</li>
+                        {{end}}
+                    </ul>
                 </div>
             </div>
-            {{end}}
+        </div>
+
+        <div class="concerts-section">
+            <h2>Tournée Mondiale</h2>
+            
+            <div class="concerts-grid">
+                {{range $location, $dates := .Relation.DatesLocations}}
+                <div class="concert-card">
+                    <div class="location-title clean-me">{{$location}}</div>
+                    
+                    <div class="dates-list">
+                        {{range $dates}}
+                        <span class="date-tag">{{.}}</span>
+                        {{end}}
+                    </div>
+                </div>
+                {{end}}
+            </div>
         </div>
     </div>
+
+    <script>
+        document.querySelectorAll('.clean-me').forEach(el => {
+            let text = el.innerText;
+            // Remplace les tirets bas et normaux par des espaces ou virgules
+            text = text.replace(/_/g, ' ').replace(/-/g, ', ');
+            // Met des majuscules partout (simple)
+            el.innerText = text.replace(/\b\w/g, l => l.toUpperCase());
+        });
+    </script>
 
 </body>
 </html>
