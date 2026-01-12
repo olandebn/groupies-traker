@@ -2,64 +2,36 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{.Artist.Name}} | Insights</title>
+    <title>{{.Artist.Name}} | Détails</title>
     <link rel="stylesheet" href="/static/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
-<body class="details-body">
-    <div class="glow-bg"></div>
-    
-    <div class="wrapper">
-        <header class="navbar">
-            <a href="/" class="back-link">
-                <span class="icon">←</span> Retour à la collection
-            </a>
+<body>
+    <div class="container">
+        <header>
+            <a href="/" style="color: var(--primary); text-decoration: none;">← Retour</a>
         </header>
 
-        <main class="dashboard-grid">
-            <aside class="profile-sidebar glass">
-                <div class="image-container">
-                    <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}">
-                </div>
-                <div class="artist-header">
-                    <h1>{{.Artist.Name}}</h1>
-                    <div class="tag-row">
-                        <span class="tag">Actif depuis {{.Artist.CreationDate}}</span>
-                    </div>
-                </div>
-                <div class="artist-stats">
-                    <div class="stat-item">
-                        <label>Premier Album</label>
-                        <p>{{.Artist.FirstAlbum}}</p>
-                    </div>
-                    <div class="stat-item">
-                        <label>Membres du groupe</label>
-                        <ul class="members-pill-list">
-                            {{range .Artist.Members}}<li>{{.}}</li>{{end}}
-                        </ul>
-                    </div>
-                </div>
-            </aside>
+        <main class="dashboard">
+            <section class="profile-card glass">
+                <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}">
+                <h1>{{.Artist.Name}}</h1>
+                <div class="badge">Actif depuis {{.Artist.CreationDate}} [cite: 5]</div>
+                <p><strong>Premier Album :</strong> {{.Artist.FirstAlbum}} [cite: 5]</p>
+                <h3>Membres :</h3>
+                <ul style="list-style: none; padding: 0;">
+                    {{range .Artist.Members}}<li>• {{.}}</li>{{end}} [cite: 5]
+                </ul>
+            </section>
 
-            <section class="events-main glass">
-                <div class="section-header">
-                    <h2>🌍 Tournée & Événements</h2>
-                    <p>Découvrez les prochaines destinations et dates historiques.</p>
-                </div>
-                
-                <div class="timeline-grid">
-                    {{range $loc, $dates := .Relation.DatesLocations}}
-                    <div class="event-card">
-                        <div class="loc-info">
-                            <span class="pin">📍</span>
-                            <h3>{{$loc}}</h3>
-                        </div>
-                        <div class="date-chips">
-                            {{range $dates}}
-                            <span class="chip">{{.}}</span>
-                            {{end}}
-                        </div>
+            <section class="glass">
+                <h2>🌍 Tournée & Concerts [cite: 6, 7]</h2>
+                <div class="concert-grid">
+                    {{range $loc, $dates := .Relation.DatesLocations}} [cite: 8]
+                    <div class="concert-item">
+                        <h3>{{$loc}}</h3>
+                        {{range $dates}}
+                        <span class="date-tag">{{.}}</span>
+                        {{end}}
                     </div>
                     {{end}}
                 </div>
