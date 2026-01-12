@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{.Artist.Name}} - Groupie Tracker</title>
+    <title>{{.Artist.Name}} - Détails</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
-    <a href="/" style="position: absolute; top: 20px; left: 20px; z-index: 100; color: white; text-decoration: none; font-weight: bold;">← Retour aux artistes</a>
+    <a href="/" style="position: fixed; top: 20px; left: 20px; z-index: 100; background: rgba(0,0,0,0.5); padding: 10px 20px; border-radius: 30px; color: white; font-weight: bold;">
+        ← Retour
+    </a>
 
     <div class="hero-section">
         <div class="hero-bg" style="background-image: url('{{.Artist.Image}}');"></div>
@@ -19,44 +21,50 @@
         </div>
     </div>
 
+
     <div class="details-grid">
-        
+
         <div class="left-column">
             
             <div class="glass-box" style="margin-bottom: 30px;">
                 <h3>Informations</h3>
-                <p><strong>Création :</strong> {{.Artist.CreationDate}}</p>
-                <p><strong>Premier Album :</strong> {{.Artist.FirstAlbum}}</p>
+                <div class="info-item">
+                    <strong>Début de carrière :</strong> {{.Artist.CreationDate}}
+                </div>
+                <div class="info-item">
+                    <strong>Premier Album :</strong> {{.Artist.FirstAlbum}}
+                </div>
             </div>
 
             <div class="glass-box">
-                <h3>Membres</h3>
+                <h3>Membres du groupe</h3>
                 <ul class="members-list">
                     {{range .Artist.Members}}
-                    <li>{{.}}</li>
+                    <li>🎸 {{.}}</li>
                     {{end}}
                 </ul>
             </div>
+
         </div>
 
         <div class="right-column">
             <div class="glass-box">
-                <h3>Tournée & Dates</h3>
-                
+                <h3>🎸 Tournées & Dates</h3>
+
                 {{if .Relation.DatesLocations}}
                     {{range $location, $dates := .Relation.DatesLocations}}
                     <div class="concert-item">
-                        <span class="location-name">{{$location | cleanLocation}}</span>
+                        <span class="location-name">📍 {{$location | cleanLocation}}</span>
                         
                         <div class="dates-container">
                             {{range $dates}}
-                            <span class="date-badge">📅 {{.}}</span>
+                            <span class="date-badge">{{.}}</span>
                             {{end}}
                         </div>
                     </div>
                     {{end}}
                 {{else}}
-                    <p>Aucune date de concert trouvée.</p>
+                    <p style="color: var(--text-muted);">Aucune date de concert trouvée pour cet artiste.</p>
                 {{end}}
             </div>
         </div>

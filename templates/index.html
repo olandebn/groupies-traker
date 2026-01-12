@@ -3,29 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Groupie Tracker | Premium</title>
+    <title>Groupie Tracker Premium</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <header>
-        <h1>Groupie Tracker</h1>
-        <p>Explorez les données de vos artistes favoris</p>
+
+    <header class="site-header">
+        <h1 class="site-title">Groupie Tracker</h1>
+        <p style="color: var(--text-muted); font-size: 1.2rem;">Explorez l'univers de vos artistes favoris</p>
     </header>
 
-    <main class="grid">
-        {{range .}}
-        <div class="card">
-            <div class="image-container">
-                <img src="{{.Image}}" alt="{{.Name}}">
-            </div>
-            <div class="content">
-                <span class="info-tag">Créé en {{.CreationDate}}</span>
-                <h2>{{.Name}}</h2>
-                <p>Premier album : {{.FirstAlbum}}</p>
-                <a href="/artist?id={{.ID}}" class="btn-more">Voir les Concerts</a>
-            </div>
+    <div class="container">
+        <div class="cards-grid">
+            {{range .}}
+            <a href="/artist?id={{.ID}}" class="artist-card">
+                <div class="card-image-wrapper">
+                    <img src="{{.Image}}" alt="{{.Name}}" loading="lazy">
+                </div>
+                <div class="card-info">
+                    <div>
+                        <h2>{{.Name}}</h2>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Créé en {{.CreationDate}}</p>
+                    </div>
+                    <span class="btn-details">Voir les concerts</span>
+                </div>
+            </a>
+            {{end}}
         </div>
-        {{end}}
-    </main>
+    </div>
+
 </body>
 </html>

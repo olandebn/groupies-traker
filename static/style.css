@@ -1,43 +1,46 @@
-/* IMPORTATION DE LA POLICE */
+/* IMPORTATION D'UNE POLICE MODERNE */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap');
 
 :root {
     --bg-dark: #121212;
-    --card-bg: #1e1e1e;
-    --primary: #00d2ff; /* Bleu Cyan Néon */
+    --bg-card: #1e1e1e;
+    /* Couleurs Néon pour le peps */
+    --primary: #00d2ff;  /* Cyan */
     --secondary: #7b2cbf; /* Violet */
     --text-main: #ffffff;
-    --text-muted: #a0a0a0;
+    --text-muted: #b3b3b3;
 }
 
 body {
     margin: 0;
-    padding: 0;
     font-family: 'Montserrat', sans-serif;
     background-color: var(--bg-dark);
     color: var(--text-main);
-    overflow-x: hidden;
+    overflow-x: hidden; /* Évite le scroll horizontal indésirable */
 }
 
-/* --- HEADER / TITRE PRINCIPAL --- */
+a { text-decoration: none; }
+
+/* --- HEADER PRINCIPAL (Page d'accueil) --- */
 .site-header {
     text-align: center;
-    padding: 40px 20px;
-    background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(18,18,18,1) 100%);
+    padding: 50px 20px;
+    background: radial-gradient(circle at center, rgba(123, 44, 191, 0.2) 0%, rgba(18, 18, 18, 1) 70%);
 }
 
 .site-title {
     font-weight: 800;
-    font-size: 3rem;
+    font-size: 3.5rem;
     text-transform: uppercase;
-    letter-spacing: 4px;
+    letter-spacing: 2px;
     margin: 0;
-    background: -webkit-linear-gradient(45deg, var(--primary), var(--secondary));
+    /* Effet de dégradé sur le texte */
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-/* --- GRID SYSTEM (ACCUEIL) --- */
+/* --- SYSTÈME DE GRILLE (Accueil) --- */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -46,27 +49,25 @@ body {
 
 .cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 30px;
     padding-bottom: 50px;
 }
 
-/* --- CARTES ARTISTES --- */
+/* --- CARTE ARTISTE (Accueil) --- */
 .artist-card {
-    background-color: var(--card-bg);
+    background-color: var(--bg-card);
     border-radius: 16px;
     overflow: hidden;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    color: white;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
 }
 
 .artist-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 0 25px rgba(0, 210, 255, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 210, 255, 0.3);
     border-color: var(--primary);
 }
 
@@ -83,12 +84,15 @@ body {
 }
 
 .artist-card:hover .card-image-wrapper img {
-    transform: scale(1.1);
+    transform: scale(1.1); /* Zoom au survol */
 }
 
 .card-info {
     padding: 20px;
-    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card-info h2 {
@@ -97,20 +101,23 @@ body {
 }
 
 .btn-details {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 8px 20px;
-    background: var(--primary);
-    color: #000;
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    padding: 10px;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: white;
     font-weight: bold;
-    border-radius: 20px;
-    font-size: 0.9rem;
+    border-radius: 30px;
+    transition: opacity 0.2s;
 }
+
+.btn-details:hover { opacity: 0.9; }
 
 /* --- PAGE DÉTAILS : HERO BANNER --- */
 .hero-section {
     position: relative;
-    height: 40vh; /* 40% de la hauteur de l'écran */
+    height: 45vh; /* 45% de la hauteur de l'écran */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -118,114 +125,105 @@ body {
     margin-bottom: 40px;
 }
 
+/* L'image de fond floutée */
 .hero-bg {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    top:0; left:0; right:0; bottom:0;
     background-size: cover;
     background-position: center;
-    filter: blur(20px) brightness(0.4);
+    filter: blur(25px) brightness(0.3); /* Très flou et sombre */
     z-index: -1;
+    transform: scale(1.1); /* Pour éviter les bords blancs dus au flou */
 }
 
 .hero-content {
     text-align: center;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    z-index: 2;
 }
 
 .hero-avatar {
-    width: 180px;
-    height: 180px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    border: 4px solid var(--primary);
-    object-fit: cover;
-    box-shadow: 0 0 30px rgba(0,0,0,0.6);
+    border: 5px solid var(--primary);
+    box-shadow: 0 0 40px rgba(0, 210, 255, 0.5);
     margin-bottom: 20px;
+    object-fit: cover;
 }
 
 .hero-name {
     font-size: 4rem;
     font-weight: 800;
     text-transform: uppercase;
-    text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
     margin: 0;
 }
 
-/* --- PAGE DÉTAILS : CONTENU --- */
+/* --- PAGE DÉTAILS : LA GRILLE DE CONTENU --- */
 .details-grid {
     display: grid;
-    grid-template-columns: 1fr 2fr; /* Colonne gauche plus petite */
+    /* Deux colonnes : une petite à gauche, une grande à droite */
+    grid-template-columns: 1fr 2fr; 
     gap: 40px;
     max-width: 1200px;
     margin: 0 auto 60px auto;
     padding: 0 20px;
 }
 
-/* STYLE DES BOITES DE CONTENU */
+/* Effet "Glassmorphism" pour les boites */
 .glass-box {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    padding: 30px;
+    background: rgba(255, 255, 255, 0.03); /* Très transparent */
+    backdrop-filter: blur(20px); /* L'effet de verre dépoli */
+    -webkit-backdrop-filter: blur(20px);
     border-radius: 20px;
+    padding: 30px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    height: fit-content;
 }
 
 .glass-box h3 {
     color: var(--primary);
-    border-bottom: 2px solid rgba(255,255,255,0.1);
-    padding-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     margin-top: 0;
+    border-bottom: 2px solid rgba(255,255,255,0.05);
+    padding-bottom: 15px;
 }
 
-.members-list {
-    list-style: none;
-    padding: 0;
+.info-item {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
 }
+.info-item strong { color: var(--primary); }
 
+.members-list { list-style: none; padding: 0; }
 .members-list li {
     padding: 8px 0;
-    font-size: 1.1rem;
     border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-/* STYLE DES CONCERTS */
+/* --- PAGE DÉTAILS : LES CONCERTS --- */
 .concert-item {
-    background: rgba(0,0,0,0.3);
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-left: 4px solid var(--secondary);
+    background: rgba(0,0,0,0.2);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-left: 5px solid var(--secondary); /* Barre violette à gauche */
 }
 
 .location-name {
-    font-weight: bold;
-    font-size: 1.2rem;
-    color: #fff;
-    text-transform: capitalize; /* Met la première lettre en majuscule */
-    margin-bottom: 5px;
     display: block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.dates-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .date-badge {
-    display: inline-block;
-    background: rgba(255,255,255,0.1);
-    padding: 4px 10px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    margin-right: 5px;
-    margin-top: 5px;
-    color: var(--primary);
-}
-
-/* Responsive Mobile */
-@media (max-width: 768px) {
-    .details-grid {
-        grid-template-columns: 1fr;
-    }
-    .hero-name {
-        font-size: 2.5rem;
-    }
-}
+    background: rgba(0, 210, 255, 0.1);

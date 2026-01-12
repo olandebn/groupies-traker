@@ -8,24 +8,27 @@ import (
 	"strings" // Nécessaire pour manipuler les chaînes de caractères
 )
 
-// On définit ici des fonctions personnalisées utilisables dans le HTML
+// --- BONUS : NETTOYAGE DES DONNÉES ---
+// On définit ici des fonctions qu'on pourra utiliser directement dans le HTML.
+// Celle-ci sert à rendre les noms de lieux plus jolis.
 var funcMap = template.FuncMap{
 	"cleanLocation": func(s string) string {
 		// Remplace les tirets bas "_" par des espaces
 		s = strings.ReplaceAll(s, "_", " ")
 		// Remplace les tirets "-" par ", "
 		s = strings.ReplaceAll(s, "-", ", ")
-		// Met la première lettre de chaque mot en majuscule
-		s = strings.Title(s)
+		// Met la première lettre de chaque mot en majuscule (simple implementation)
+		s = strings.Title(strings.ToLower(s))
 		return s
 	},
 }
 
-// Chargement des templates AVEC la FuncMap (très important de le faire dans cet ordre)
+// --- CHARGEMENT DES TEMPLATES ---
+// IMPORTANT : On charge la FuncMap AVANT de parser les fichiers.
 var tmpls = template.Must(template.New("").Funcs(funcMap).ParseGlob("templates/*.html"))
 
 func main() {
-	// Configuration du serveur de fichiers statiques (pour le CSS)
+	// Configuration du serveur de fichiers statiques (pour le CSS et images)
 	fs := http.FileServer(http.Dir("./static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
@@ -34,6 +37,7 @@ func main() {
 	http.HandleFunc("/artist", artistHandler)
 
 	fmt.Println("Siuuu! Serveur lancé sur : http://localhost:8080")
+	// Gestion des erreurs fatales
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
@@ -45,7 +49,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var artists []Artist
-	// Appel à FetchData (défini dans data.go)
+	// Appel à l'API via data.go (assure-toi que ton fichier data.go est dans le même dossier)
 	err := FetchData("/artists", &artists)
 	if err != nil {
 		http.Error(w, "Erreur lors de la récupération des artistes", http.StatusInternalServerError)
@@ -72,11 +76,12 @@ func artistHandler(w http.ResponseWriter, r *http.Request) {
 	errRel := FetchData("/relation/"+id, &rel)
 
 	if errArt != nil || errRel != nil {
-		http.Error(w, "Données introuvables", http.StatusNotFound)
+		http.Error(w, "Données introuvables ou API indisponible", http.StatusNotFound)
 		return
 	}
 
 	// On combine les données pour le template
+	// Dans le HTML, on utilisera .Artist et .Relation
 	data := struct {
 		Artist   Artist
 		Relation Relation
