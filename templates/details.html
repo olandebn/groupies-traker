@@ -1,14 +1,40 @@
 <!DOCTYPE html>
-<html>
-<head><title>{{.Artist.Name}}</title></head>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Artist.Name}} | Détails</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
 <body>
-    <h1>{{.Artist.Name}}</h1>
-    <h3>Concerts et Lieux :</h3>
-    <ul>
-        {{range $loc, $dates := .Relation.DatesLocations}}
-        <li><strong>{{$loc}}</strong> : {{range $dates}}{{.}} {{end}}</li>
-        {{end}}
-    </ul>
-    <a href="/">Retour</a>
+    <header>
+        <a href="/" class="btn-back">← Retour</a>
+        <h1>{{.Artist.Name}}</h1>
+    </header>
+
+    <main class="detail-container">
+        <div class="artist-header-card">
+            <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}">
+            <div class="artist-specs">
+                <p><strong>Membres :</strong> {{range .Artist.Members}}{{.}}, {{end}}</p>
+                <p><strong>Création :</strong> {{.Artist.CreationDate}}</p>
+                <p><strong>Premier Album :</strong> {{.Artist.FirstAlbum}}</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Dates et Lieux de Concerts</h2>
+        <div class="relation-grid">
+            {{range $loc, $dates := .Relation.DatesLocations}}
+            <div class="loc-card">
+                <h3>{{$loc}}</h3>
+                <ul>
+                    {{range $dates}}
+                    <li>{{.}}</li>
+                    {{end}}
+                </ul>
+            </div>
+            {{end}}
+        </div>
+    </main>
 </body>
 </html>
