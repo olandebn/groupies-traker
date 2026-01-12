@@ -2,25 +2,29 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>{{.Artist.Name}} | Détails</title>
+    <title>{{.Artist.Name}} | Détails Premium</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body class="detail-body">
+    <div class="background-glow"></div>
+    
     <div class="container">
         <header class="detail-header">
-            <a href="/" class="back-btn">← Retour</a>
+            <a href="/" class="back-link">← Retour à l'accueil</a>
             <h1>{{.Artist.Name}}</h1>
         </header>
 
         <div class="main-content">
-            <div class="glass-card profile-section">
-                <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}" class="profile-img">
-                <div class="artist-stats">
-                    <p><span>Créé en :</span> {{.Artist.CreationDate}}</p>
-                    <p><span>1er Album :</span> {{.Artist.FirstAlbum}}</p>
-                    <div class="members-box">
-                        <p><strong>Membres :</strong></p>
-                        <ul>
+            <div class="glass-card artist-profile">
+                <div class="image-wrapper">
+                    <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}">
+                </div>
+                <div class="artist-specs">
+                    <div class="badge">Actif depuis {{.Artist.CreationDate}}</div>
+                    <p><strong>Premier Album :</strong> {{.Artist.FirstAlbum}}</p>
+                    <div class="members-section">
+                        <h3>Membres :</h3>
+                        <ul class="member-list">
                             {{range .Artist.Members}}<li>{{.}}</li>{{end}}
                         </ul>
                     </div>
@@ -31,9 +35,9 @@
                 <h2>🌍 Tournée & Concerts</h2>
                 <div class="relation-grid">
                     {{range $loc, $dates := .Relation.DatesLocations}}
-                    <div class="location-item">
+                    <div class="loc-card">
                         <h3>{{$loc}}</h3>
-                        <div class="dates-list">
+                        <div class="dates-container">
                             {{range $dates}}
                             <span class="date-tag">{{.}}</span>
                             {{end}}

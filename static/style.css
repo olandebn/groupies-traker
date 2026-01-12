@@ -1,88 +1,117 @@
-/* Styles spécifiques pour la page de détails */
+/* --- Styles Page de Détails --- */
 .detail-body {
-    background-color: #0b0e14; /* Fond très sombre comme ton accueil */
+    background-color: #0b0e14;
     color: white;
-    padding: 20px;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.background-glow {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 50% -20%, #3a7bd5, transparent 50%);
+    z-index: -1;
 }
 
 .detail-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    margin-bottom: 40px;
+    padding: 40px 0;
+    text-align: center;
 }
 
-.back-btn {
-    position: absolute;
-    left: 0;
+.back-link {
     color: #00f2fe;
     text-decoration: none;
     font-weight: bold;
     border: 1px solid #00f2fe;
-    padding: 8px 15px;
-    border-radius: 20px;
+    padding: 10px 20px;
+    border-radius: 50px;
     transition: 0.3s;
 }
 
-.back-btn:hover {
+.back-link:hover {
     background: #00f2fe;
     color: black;
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
 }
 
+/* Layout en deux colonnes */
 .main-content {
     display: grid;
-    grid-template-columns: 350px 1fr;
+    grid-template-columns: 380px 1fr;
     gap: 30px;
+    padding-bottom: 50px;
 }
 
-/* Effet de verre (Glassmorphism) */
 .glass-card {
     background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 25px;
-    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 30px;
 }
 
-.profile-img {
+/* Profil Artiste */
+.image-wrapper img {
     width: 100%;
     border-radius: 15px;
-    margin-bottom: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-.artist-stats span {
-    color: #00f2fe;
+.badge {
+    display: inline-block;
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+    color: black;
+    padding: 5px 15px;
+    border-radius: 50px;
     font-weight: bold;
+    margin: 20px 0;
 }
 
-.relation-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
-    margin-top: 20px;
+.member-list {
+    list-style: none;
+    padding: 0;
 }
 
-.location-item {
-    background: rgba(0, 242, 254, 0.05);
-    padding: 15px;
-    border-radius: 12px;
+.member-list li {
+    background: rgba(255, 255, 255, 0.05);
+    margin: 5px 0;
+    padding: 8px 15px;
+    border-radius: 10px;
     border-left: 3px solid #00f2fe;
 }
 
-.location-item h3 {
+/* Grille des Concerts */
+.relation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.loc-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 242, 254, 0.2);
+}
+
+.loc-card h3 {
     margin: 0 0 10px 0;
     font-size: 0.9rem;
-    text-transform: uppercase;
     color: #00f2fe;
+    text-transform: uppercase;
 }
 
 .date-tag {
     display: inline-block;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 4px 8px;
-    border-radius: 5px;
+    background: rgba(0, 242, 254, 0.1);
+    padding: 4px 10px;
+    border-radius: 6px;
     font-size: 0.8rem;
-    margin: 2px;
+    margin: 3px;
+    border: 1px solid rgba(0, 242, 254, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .main-content { grid-template-columns: 1fr; }
 }
