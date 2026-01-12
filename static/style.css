@@ -1,83 +1,67 @@
 :root {
     --primary: #00f2fe;
     --secondary: #4facfe;
-    --bg-dark: #080a0f;
-    --glass: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.08);
+    --bg-dark: #0f111a;
+    --card-bg: rgba(255, 255, 255, 0.05);
 }
 
 body {
     background-color: var(--bg-dark);
-    background-image: radial-gradient(circle at top right, rgba(79, 172, 254, 0.1), transparent 40%);
-    color: #ffffff;
+    background-image: radial-gradient(circle at top right, rgba(79, 172, 254, 0.15), transparent 50%);
+    color: white;
     font-family: 'Segoe UI', system-ui, sans-serif;
     margin: 0;
     min-height: 100vh;
 }
 
-.container { max-width: 1200px; margin: 0 auto; padding: 40px; }
+h1 {
+    text-align: center;
+    font-size: 3rem;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 40px 0;
+}
 
-/* Dashboard Layout */
-.dashboard {
+/* Grille de visualisation (Objectif 9)  */
+.grid {
     display: grid;
-    grid-template-columns: 350px 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 30px;
-    margin-top: 30px;
+    padding: 0 40px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
-.glass {
-    background: var(--glass);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
+/* Cartes stylisées (Objectif 9)  */
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 24px;
-    padding: 30px;
-}
-
-/* Sidebar Profile */
-.profile-card img {
-    width: 100%;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-.badge {
-    display: inline-block;
-    background: linear-gradient(90deg, var(--secondary), var(--primary));
-    color: #000;
-    padding: 5px 15px;
-    border-radius: 50px;
-    font-weight: bold;
-    font-size: 0.8rem;
-    margin: 15px 0;
-}
-
-/* Concert Grid */
-.concert-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 20px;
-}
-
-.concert-item {
-    background: rgba(255,255,255,0.02);
-    border: 1px solid var(--glass-border);
-    border-radius: 16px;
     padding: 20px;
-    transition: 0.3s;
+    text-align: center;
+    transition: transform 0.3s ease, border-color 0.3s;
 }
 
-.concert-item:hover {
-    transform: translateY(-5px);
-    background: rgba(255,255,255,0.05);
+.card:hover {
+    transform: translateY(-10px);
     border-color: var(--primary);
 }
 
-.concert-item h3 { color: var(--primary); font-size: 1rem; margin-top: 0; }
-.date-tag {
+.card img {
+    width: 100%;
+    border-radius: 16px;
+    margin-bottom: 15px;
+}
+
+.btn-concert {
     display: inline-block;
-    background: rgba(255,255,255,0.05);
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    margin: 2px;
+    background: var(--primary);
+    color: #000;
+    padding: 10px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 15px;
 }

@@ -2,30 +2,20 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Groupie Tracker | Premium</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <header>
-        <h1>Groupie Tracker</h1>
-        <p>Explorez les données de vos artistes favoris</p>
-    </header>
-
-    <main class="grid">
+    <h1>Groupie Tracker</h1>
+    <div class="grid">
         {{range .}}
         <div class="card">
-            <div class="image-container">
-                <img src="{{.Image}}" alt="{{.Name}}">
-            </div>
-            <div class="content">
-                <span class="info-tag">Créé en {{.CreationDate}}</span>
-                <h2>{{.Name}}</h2>
-                <p>Premier album : {{.FirstAlbum}}</p>
-                <a href="/artist?id={{.ID}}" class="btn-more">Voir les Concerts</a>
-            </div>
+            <img src="{{.Image}}" alt="{{.Name}}">
+            <h2>{{.Name}}</h2>
+            <p>Actif depuis : {{.CreationDate}}</p>
+            <a href="/artist?id={{.ID}}" class="btn-concert">Concerts</a>
         </div>
         {{end}}
-    </main>
+    </div>
 </body>
 </html>
