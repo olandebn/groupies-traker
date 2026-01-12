@@ -7,18 +7,19 @@ import (
 	"net/http"
 )
 
-// Chargement simple des templates
+// On charge les templates normalement
 var tmpls = template.Must(template.ParseGlob("templates/*.html"))
 
 func main() {
-	// Serveur de fichiers pour le CSS
+	// On sert le dossier "static" pour que le CSS fonctionne
 	fs := http.FileServer(http.Dir("./static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
+	// Routes
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/artist", artistHandler)
 
-	fmt.Println("Siuuu! Serveur lancé sur : http://localhost:8080")
+	fmt.Println("Serveur lancé sur : http://localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
@@ -29,10 +30,10 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var artists []Artist
-	// Appel à ton fichier data.go
+	// Appel à ton data.go (FetchData)
 	err := FetchData("/artists", &artists)
 	if err != nil {
-		http.Error(w, "Erreur API", http.StatusInternalServerError)
+		http.Error(w, "Erreur lors de la récupération des artistes", http.StatusInternalServerError)
 		return
 	}
 

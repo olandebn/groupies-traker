@@ -8,23 +8,31 @@
 </head>
 <body>
 
-    <h1>Groupie Tracker</h1>
-    <p>Explorez les données de vos artistes favoris</p>
+    <header>
+        <h1>Groupie Tracker</h1>
+        <p>Explorez les données de vos artistes favoris</p>
+    </header>
 
-    <div class="grid">
-        {{range .}}
-        <div class="card">
-            <img src="{{.Image}}" alt="{{.Name}}">
-            
-            <div class="date-creation">Créé en {{.CreationDate}}</div>
-            
-            <h2>{{.Name}}</h2>
-            
-            <div class="album">Premier album : {{.FirstAlbum}}</div>
-            
-            <a href="/artist?id={{.ID}}" class="btn">VOIR LES CONCERTS</a>
+    <div class="container">
+        <div class="grid">
+            {{range .}}
+            <div class="card">
+                <img src="{{.Image}}" alt="{{.Name}}">
+                
+                <div>
+                    <span class="creation-date">Créé en {{.CreationDate}}</span>
+                </div>
+
+                <h2>{{.Name}}</h2>
+
+                <div class="album-info">
+                    Premier album : {{.FirstAlbum}}
+                </div>
+
+                <a href="/artist?id={{.ID}}" class="btn-concerts">VOIR LES CONCERTS</a>
+            </div>
+            {{end}}
         </div>
-        {{end}}
     </div>
 
 </body>
