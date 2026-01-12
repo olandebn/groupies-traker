@@ -19,8 +19,8 @@
             <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}" class="detail-img">
             <div class="artist-info">
                 <div class="badge">Actif depuis {{.Artist.CreationDate}}</div>
-                <p><strong>Premier Album :</strong> {{.Artist.FirstAlbum}}</p>
-                <p><strong>Membres :</strong></p>
+                <p class="specs"><strong>Premier Album :</strong> {{.Artist.FirstAlbum}}</p>
+                <p class="specs"><strong>Membres :</strong></p>
                 <ul class="member-list">
                     {{range .Artist.Members}}<li>{{.}}</li>{{end}}
                 </ul>
@@ -35,7 +35,7 @@
                 <h3>{{$loc}}</h3>
                 <div class="date-list">
                     {{range $dates}}
-                    <span class="date-tag">{{. text}}</span>
+                    <span class="date-tag">{{.}}</span>
                     {{end}}
                 </div>
             </div>
