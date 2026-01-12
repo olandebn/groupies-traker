@@ -3,35 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{.Artist.Name}} | Détails</title>
+    <title>{{.Artist.Name}} | Groupie Tracker</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <header>
-        <a href="/" class="btn-back">← Retour</a>
+    <div class="background-glow"></div>
+    
+    <header class="detail-header">
+        <a href="/" class="back-link">← Retour à l'accueil</a>
         <h1>{{.Artist.Name}}</h1>
     </header>
 
-    <main class="detail-container">
-        <div class="artist-header-card">
-            <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}">
-            <div class="artist-specs">
-                <p><strong>Membres :</strong> {{range .Artist.Members}}{{.}}, {{end}}</p>
-                <p><strong>Création :</strong> {{.Artist.CreationDate}}</p>
+    <main class="container">
+        <div class="glass-card artist-hero">
+            <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}" class="detail-img">
+            <div class="artist-info">
+                <div class="badge">Actif depuis {{.Artist.CreationDate}}</div>
                 <p><strong>Premier Album :</strong> {{.Artist.FirstAlbum}}</p>
+                <p><strong>Membres :</strong></p>
+                <ul class="member-list">
+                    {{range .Artist.Members}}<li>{{.}}</li>{{end}}
+                </ul>
             </div>
         </div>
 
-        <h2 class="section-title">Dates et Lieux de Concerts</h2>
+        <h2 class="subtitle">🌍 Tournée & Concerts</h2>
+
         <div class="relation-grid">
             {{range $loc, $dates := .Relation.DatesLocations}}
-            <div class="loc-card">
+            <div class="glass-card loc-card">
                 <h3>{{$loc}}</h3>
-                <ul>
+                <div class="date-list">
                     {{range $dates}}
-                    <li>{{.}}</li>
+                    <span class="date-tag">{{. text}}</span>
                     {{end}}
-                </ul>
+                </div>
             </div>
             {{end}}
         </div>

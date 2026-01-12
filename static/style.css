@@ -1,64 +1,89 @@
-/* Styles spécifiques pour la page de détails */
-.detail-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
+:root {
+    --primary: #00d2ff;
+    --secondary: #3a7bd5;
+    --glass: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
 }
 
-.artist-header-card {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    background: var(--card-bg);
+body {
+    background: #0f0c29;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.background-glow {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 50% -20%, #3a7bd5, transparent 50%);
+    z-index: -1;
+}
+
+.container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+
+.glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
     padding: 30px;
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-.artist-header-card img {
-    width: 250px;
+/* Mise en page Hero */
+.artist-hero {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.detail-img {
+    width: 300px;
     border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-.section-title {
-    text-align: center;
-    color: var(--primary);
-    margin: 40px 0;
+.badge {
+    display: inline-block;
+    padding: 5px 15px;
+    background: var(--primary);
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 0.8em;
+    margin-bottom: 15px;
 }
 
+/* Grille de concerts */
 .relation-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
 }
 
-.loc-card {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 15px;
-    border-radius: 15px;
-    border-left: 4px solid var(--secondary);
-}
-
 .loc-card h3 {
-    font-size: 1rem;
-    text-transform: capitalize;
+    margin: 0 0 15px 0;
+    font-size: 1.1em;
     color: var(--primary);
-    margin-top: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.loc-card ul {
-    list-style: none;
-    padding: 0;
-    font-size: 0.9rem;
-    opacity: 0.8;
+.date-tag {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 3px 10px;
+    border-radius: 5px;
+    margin: 3px;
+    font-size: 0.85em;
 }
 
-.btn-back {
-    position: absolute;
-    top: 40px;
-    left: 40px;
+.back-link {
     color: var(--primary);
     text-decoration: none;
     font-weight: bold;
+    transition: 0.3s;
 }
+
+.back-link:hover { opacity: 0.7; }
